@@ -1,90 +1,72 @@
 "use client";
-import React, { useState } from "react";
-
+import { useState } from "react";
+import { LoginModal } from "@/features/auth";
+import Carusel from "./home/Corusel";
+import Text from "./home/Text";
 export default function Page() {
-  const [step, setStep] = useState<"phone" | "code">("phone");
-  const [phone, setPhone] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-[30px] bg-gray-200">
-      <div className="bg-white rounded-2xl shadow-lg w-[450px] p-6 relative">
-        <button className="absolute top-3 right-6 text-gray-400 hover:text-gray-600">
-          ✕
-        </button>
+    <>
+      {isOpen && <LoginModal onClose={() => setIsOpen(false)} />}
+      <header className="w-full max-w-[1400px] m-auto p-4">
+        <div className=" rounded-[14px] bg-[#F9FAFB] mx-auto px-4 py-[12.5px] flex items-center h-[73px]">
+          <div className="text-2xl font-bold text-gray-800  ml-[20px] mr-[70px]">
+            <img
+              src="/assets/icons/logo.svg"
+              alt="Logo"
+              className="w-[82px] h-[56px]"
+            />
+          </div>
+          <div className="w-[131px] h-[48px] bg-[#D4E9E2] text-[#006241] rounded-[14px] mr-[20px] flex items-center justify-center">
+            <img src="/assets/icons/Vector.svg" alt="" className="mr-2" />
+            Каталог
+          </div>
 
-        {/* Agar step = phone bo'lsa */}
-        {step === "phone" && (
-          <>
-            <h2 className="text-2xl font-bold text-center mb-4">
-              Войти в <span className="text-green-800">Yashil Bozor</span>
-            </h2>
-            <p className="text-gray-500 text-sm text-center mb-6">
-              Мы отправим код или позвоним. Отвечать на звонок не нужно. Код
-              может прийти на почту или в СМС
-            </p>
-
-            <div className="mb-4">
-              <label
-                htmlFor="phone"
-                className="block text-sm text-gray-500 mb-1"
-              >
-                Номер телефона
-              </label>
-              <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-                <span className="pl-3 text-gray-700">+998</span>
-                <input
-                  id="phone"
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="00 000-00-00"
-                  className="flex-1 pr-3 ml-1 py-2 focus:outline-none"
-                />
-              </div>
+          <div className="flex items-center w-240 h-[48px] border-black/8 border rounded-full mr-[10px] overflow-hidden">
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Найти продукты"
+              className="flex-1 px-4 py-2 outline-none"
+            />
+            <button className="bg-black/4 text-white px-9 py-3.5">
+              <img src="/assets/icons/Vector2.svg" alt="" />
+            </button>
+          </div>
+          <div className="flex items-center w-[308px] gap-2">
+            <div className="flex flex-col w-[96px] h-[65px] mt-[10px] mr-[10px] items-center cursor-pointer ">
+              <img
+                src="/assets/icons/user.svg"
+                alt="Войти"
+                className="w-6 h-6 mb-1 "
+              />
+              <span onClick={() => setIsOpen(true)}>Войти</span>
+            </div>
+            <div className="flex flex-col w-[96px] h-[65px] mt-[10px] mr-[10px]  items-center cursor-pointer">
+              <img
+                src="/assets/icons/Component 47.svg"
+                alt="Избранное"
+                className="w-6 h-6 mb-1"
+              />
+              <span>Избранное</span>
             </div>
 
-            <button
-              onClick={() => setStep("code")}
-              className="w-full bg-green-800 text-white py-2 rounded-lg hover:bg-green-700 transition"
-            >
-              Получить код
-            </button>
-          </>
-        )}
-
-        {/* Agar step = code bo'lsa */}
-        {step === "code" && (
-          <>
-            <h2 className="text-xl font-bold text-center mb-2">
-              Введите код из смс
-            </h2>
-            <p className="text-gray-500 text-sm text-center mb-6">
-              Для подтверждения телефона отправили 6-значный код на{" "}
-              <span className="font-medium">+998 {phone}</span>
-            </p>
-
-            <div className="flex justify-center gap-2 mb-6">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <input
-                  key={i}
-                  type="text"
-                  maxLength={1}
-                  className="w-10 h-12 text-center border rounded-lg focus:outline-green-500"
-                />
-              ))}
+            <div className="flex flex-col w-[96px] h-[65px] mt-[10px] mr-[10px]  items-center cursor-pointer">
+              <img
+                src="/assets/icons/Component 47 (1).svg"
+                alt="Корзина"
+                className="w-6 h-6 mb-1"
+              />
+              <span>Корзина</span>
             </div>
-
-            <button className="w-full bg-green-800 text-white py-2 rounded-lg hover:bg-green-700 transition">
-              Подтвердить
-            </button>
-
-            <p className="text-center text-sm text-gray-500 mt-4">
-              Не получили код?{" "}
-              <span className="text-green-700 font-medium">0:59</span>
-            </p>
-          </>
-        )}
-      </div>
-    </div>
+          </div>
+        </div>
+      </header>
+      <Text />
+      <Carusel />
+    </>
   );
 }
