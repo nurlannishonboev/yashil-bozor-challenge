@@ -3,6 +3,7 @@ import { useState } from "react";
 import { LoginModal } from "@/features/auth";
 import Carusel from "./home/Corusel";
 import Text from "./home/Text";
+import Praduct from "./home/Praduct";
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -67,6 +68,7 @@ export default function Page() {
       </header>
       <Text />
       <Carusel />
+      <Praduct />
     </>
   );
 }
