@@ -3,10 +3,25 @@ import { useState } from "react";
 import { LoginModal } from "@/features/auth";
 import Carusel from "./home/Corusel";
 import Text from "./home/Text";
+import axios from "axios";
 import Praduct from "./home/Praduct";
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  axios
+    .get("https://api.qa.yashil-bozor.uz/v1/categories/types/?skip=0&take=1000")
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
 
   return (
     <>
